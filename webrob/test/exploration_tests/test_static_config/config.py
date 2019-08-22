@@ -1,0 +1,16 @@
+ZERO = 0
+EMPTY_STR = ''
+
+CONFIG_DICT = {'VAR': ZERO}
+INT_VAR = ZERO
+STR_VAR = EMPTY_STR
+
+INT_CONST = 1
+STR_CONST = 'something'
+
+
+def init_vars():
+    global INT_VAR, STR_VAR, CONFIG_DICT
+    INT_VAR = INT_CONST
+    STR_VAR = STR_CONST
+    CONFIG_DICT['VAR'] = INT_CONST
