@@ -16,7 +16,7 @@ class UserManagerMock:
     def hash_password(string):
         return string
 
-
+@pytest.mark.skip(reason="will test later")
 def test_get_user():
     from webrob.models.users import User
     user_manager = UserManagerMock()
@@ -32,7 +32,7 @@ def test_get_user():
     print 'test   = {}'.format(test_user)
     return test_user
 
-
+@pytest.mark.skip(reason="will test later")
 def test_create_and_add_new_user():
     # from webrob.startup.init_app import init_app
     # init_app(app, db)
