@@ -7,6 +7,7 @@ MAIL_SERVER = 'smtp.gmail.com'
 MAIL_PORT = 465
 MAIL_USE_TLS = True
 MAIL_USE_SSL = True
+MAIL_USERNAME = 'Paul'
 
 
 @pytest.fixture
@@ -16,6 +17,7 @@ def monkeypatch_setup(monkeypatch):
     monkeypatch.setenv('OPENEASE_MAIL_PORT', MAIL_PORT)
     monkeypatch.setenv('OPENEASE_MAIL_USE_TLS', MAIL_USE_TLS)
     monkeypatch.setenv('OPENEASE_MAIL_USE_SSL', MAIL_USE_SSL)
+    monkeypatch.setenv('OPENEASE_MAIL_USERNAME', MAIL_USERNAME)
 
     # TODO: mock all other environment variables, so it does not need to be done twice
     return monkeypatch
@@ -74,6 +76,14 @@ def test_retrieve_mail_use_ssl(monkeypatch_setup):
     Config._retrieve_mail_use_ssl()
     assert  Config.MAIL_USE_SSL == MAIL_USE_SSL
 
-def test_retrieve_mail_use_ssl():
+def test_retrieve_mail_use_ssl_default():
     Config._retrieve_mail_use_ssl()
     assert Config.MAIL_USE_SSL == True
+
+def test_retrieve_mail_username(monkeypatch_setup):
+    Config._retrieve_mail_username()
+    assert Config.MAIL_USERNAME == MAIL_USERNAME
+
+# def test_retrieve_mail_username_error():
+#     with pytest.raises(KeyError):
+#         Config._retrieve_mail_username()
