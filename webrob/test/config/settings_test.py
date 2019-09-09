@@ -8,6 +8,7 @@ MAIL_PORT = 465
 MAIL_USE_TLS = True
 MAIL_USE_SSL = True
 MAIL_USERNAME = 'Paul'
+FBOOK_APP_TOKENS = ("Paul01", "abCD123ef")
 
 
 @pytest.fixture
@@ -18,6 +19,8 @@ def monkeypatch_setup(monkeypatch):
     monkeypatch.setenv('OPENEASE_MAIL_USE_TLS', MAIL_USE_TLS)
     monkeypatch.setenv('OPENEASE_MAIL_USE_SSL', MAIL_USE_SSL)
     monkeypatch.setenv('OPENEASE_MAIL_USERNAME', MAIL_USERNAME)
+    monkeypatch.setenv('FACEBOOK_APP_ID', FBOOK_APP_TOKENS[0])
+    monkeypatch.setenv('FACEBOOK_APP_SECRET', FBOOK_APP_TOKENS[1])
 
     # TODO: mock all other environment variables, so it does not need to be done twice
     return monkeypatch
@@ -84,6 +87,13 @@ def test_retrieve_mail_username(monkeypatch_setup):
     Config._retrieve_mail_username()
     assert Config.MAIL_USERNAME == MAIL_USERNAME
 
-# def test_retrieve_mail_username_error():
-#     with pytest.raises(KeyError):
-#         Config._retrieve_mail_username()
+def test_retrieve_facebook_tokens(monkeypatch_setup):
+    Config._retrieve_facebook_tokens()
+    assert Config.FACEBOOK_APP_TOKENS[0] == FBOOK_APP_TOKENS[0]
+    assert Config.FACEBOOK_APP_TOKENS[1] == FBOOK_APP_TOKENS[1]
+    # for x in Config.FACEBOOK_APP_TOKENS:
+    #     print 'x = ',x
+    #     for y in FBOOK_APP_TOKENS:
+    #         print 'y = ', y
+    #         assert x == y
+    #         continue
