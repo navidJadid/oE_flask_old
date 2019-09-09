@@ -92,9 +92,7 @@ def test_retrieve_mail_username(monkeypatch_setup):
 
 def test_retrieve_facebook_tokens(monkeypatch_setup):
     Config._retrieve_facebook_tokens()
-    assert Config.FACEBOOK_APP_TOKENS[0] == FBOOK_APP_TOKENS[0]
-    assert Config.FACEBOOK_APP_TOKENS[1] == FBOOK_APP_TOKENS[1]
-
+    assert Config.FACEBOOK_APP_TOKENS == FBOOK_APP_TOKENS
 
 def test_retrieve_twitter_tokens(monkeypatch_setup):
     Config._retrieve_twitter_tokens()
