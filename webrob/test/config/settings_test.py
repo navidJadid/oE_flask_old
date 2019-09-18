@@ -132,6 +132,22 @@ def test_retrieve_ros_distribution():
     Config._retrieve_ros_distribution()
     assert Config.ROS_DISTRIBUTION == ROS_DISTRIBUTION
 
+def test_retrieve_mail_server_vars(monkeypatch_setup):
+    Config._retrieve_mail_server_vars()
+    assert Config.MAIL_SERVER == MAIL_SERVER
+    assert Config.MAIL_PORT == MAIL_PORT
+    assert Config.MAIL_USE_TLS == MAIL_USE_TLS
+    assert  Config.MAIL_USE_SSL == MAIL_USE_SSL
+    assert Config.MAIL_USERNAME == MAIL_USERNAME
+    assert Config.MAIL_PASSWORD == MAIL_PASSWORD
+
+
+
+
+
+
+
+
 
 
 
