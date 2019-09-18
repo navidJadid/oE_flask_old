@@ -120,23 +120,24 @@ class Config:
 
     @staticmethod
     def _retrieve_facebook_tokens():
-        Config.FACEBOOK_APP_TOKENS = (evg.get_variable_with_default_none('FACEBOOK_APP_ID'),
-                                      evg.get_variable_with_default_none('FACEBOOK_APP_SECRET'))
+        Config.FACEBOOK_APP_TOKENS = Config._oauth_token('FACEBOOK')
 
     @staticmethod
     def _retrieve_twitter_tokens():
-        Config.TWITTER_APP_TOKENS = (evg.get_variable_with_default_none('TWITTER_APP_ID'),
-                                     evg.get_variable_with_default_none('TWITTER_APP_SECRET'))
+        Config.TWITTER_APP_TOKENS = Config._oauth_token('TWITTER')
 
     @staticmethod
     def _retrieve_github_tokens():
-        Config.GITHUB_APP_TOKENS = (evg.get_variable_with_default_none('GITHUB_APP_ID'),
-                                    evg.get_variable_with_default_none('GITHUB_APP_SECRET'))
+        Config.GITHUB_APP_TOKENS = Config._oauth_token('GITHUB')
 
     @staticmethod
     def _retrieve_google_tokens():
-        Config.GOOGLE_APP_TOKENS = (evg.get_variable_with_default_none('GOOGLE_APP_ID'),
-                                    evg.get_variable_with_default_none('GOOGLE_APP_SECRET'))
+        Config.GOOGLE_APP_TOKENS = Config._oauth_token('GOOGLE')
+
+    @staticmethod
+    def _oauth_token(token_service_name):
+        return ((evg.get_variable_with_default_none('{}_APP_ID'.format(token_service_name)),
+                evg.get_variable_with_default_none('{}_APP_SECRET'.format(token_service_name))))
 
     @staticmethod
     def _init_http_client():
