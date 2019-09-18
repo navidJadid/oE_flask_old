@@ -1,5 +1,5 @@
 import pytest
-
+import  webrob.config.settings
 from webrob.config.settings import Config
 
 MAIL_PASSWORD = 'abc'
@@ -9,8 +9,16 @@ MAIL_USE_TLS = True
 MAIL_USE_SSL = True
 MAIL_USERNAME = 'Paul'
 FBOOK_APP_TOKENS = ("Paul01", "abCD123ef")
-TWIT_APP_TOKENS = ("John01", "abCDef123hi")
+TWIT_APP_TOKENS = ("Paul01", "abCDef123hi")
+GIT_APP_TOKENS = ("Paul01", "abCD-ef123hi")
+GOOGLE_APP_TOKENS = ("Paul01", "abCD-ef123hi/456")
+SERVICE_TOKENS = ("Paul01", "abCD-ef123hi/456")
 
+
+def oauth_token_mock(token_service_name):
+    service_tokens = ('{}_APP_TOKENS'.format(token_service_name))
+    service_tokens = ("Paul01", "abCD-ef123hi/456")
+    return service_tokens
 
 @pytest.fixture
 def monkeypatch_setup(monkeypatch):
@@ -24,6 +32,11 @@ def monkeypatch_setup(monkeypatch):
     monkeypatch.setenv('FACEBOOK_APP_SECRET', FBOOK_APP_TOKENS[1])
     monkeypatch.setenv('TWITTER_APP_ID', TWIT_APP_TOKENS[0])
     monkeypatch.setenv('TWITTER_APP_SECRET', TWIT_APP_TOKENS[1])
+    monkeypatch.setenv('GITHUB_APP_ID', GIT_APP_TOKENS[0])
+    monkeypatch.setenv('GITHUB_APP_SECRET', GIT_APP_TOKENS[1])
+    monkeypatch.setenv('GOOGLE_APP_ID', GOOGLE_APP_TOKENS[0])
+    monkeypatch.setenv('GOOGLE_APP_SECRET', GOOGLE_APP_TOKENS[1])
+
 
     # TODO: mock all other environment variables, so it does not need to be done twice
     return monkeypatch
@@ -97,3 +110,16 @@ def test_retrieve_facebook_tokens(monkeypatch_setup):
 def test_retrieve_twitter_tokens(monkeypatch_setup):
     Config._retrieve_twitter_tokens()
     assert Config.TWITTER_APP_TOKENS == TWIT_APP_TOKENS
+
+def test_retrieve_github_tokens(monkeypatch_setup):
+    Config._retrieve_github_tokens()
+    assert  Config.GITHUB_APP_TOKENS == GIT_APP_TOKENS
+
+def test_retrieve_google_tokens(monkeypatch_setup):
+    Config._retrieve_google_tokens()
+    assert  Config.GOOGLE_APP_TOKENS == GOOGLE_APP_TOKENS
+
+
+
+
+
