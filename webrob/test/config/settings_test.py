@@ -13,6 +13,7 @@ TWIT_APP_TOKENS = ("Paul01", "abCDef123hi")
 GIT_APP_TOKENS = ("Paul01", "abCD-ef123hi")
 GOOGLE_APP_TOKENS = ("Paul01", "abCD-ef123hi/456")
 SERVICE_TOKENS = ("Paul01", "abCD-ef123hi/456")
+ROS_DISTRIBUTION = 'indigo'
 
 
 def oauth_token_mock(token_service_name):
@@ -36,6 +37,7 @@ def monkeypatch_setup(monkeypatch):
     monkeypatch.setenv('GITHUB_APP_SECRET', GIT_APP_TOKENS[1])
     monkeypatch.setenv('GOOGLE_APP_ID', GOOGLE_APP_TOKENS[0])
     monkeypatch.setenv('GOOGLE_APP_SECRET', GOOGLE_APP_TOKENS[1])
+    monkeypatch.setenv('OPENEASE_ROS_DISTRIBUTION', ROS_DISTRIBUTION)
 
 
     # TODO: mock all other environment variables, so it does not need to be done twice
@@ -125,6 +127,10 @@ def test_retrieve_oauth_tokens(monkeypatch_setup):
     assert Config.TWITTER_APP_TOKENS == TWIT_APP_TOKENS
     assert  Config.GITHUB_APP_TOKENS == GIT_APP_TOKENS
     assert  Config.GOOGLE_APP_TOKENS == GOOGLE_APP_TOKENS
+
+def test_retrieve_ros_distribution():
+    Config._retrieve_ros_distribution()
+    assert Config.ROS_DISTRIBUTION == ROS_DISTRIBUTION
 
 
 
