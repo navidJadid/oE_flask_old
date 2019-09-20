@@ -120,6 +120,11 @@ def test_retrieve_mail_username(monkeypatch_setup):
     Config._retrieve_mail_username()
     assert Config.MAIL_USERNAME == MAIL_USERNAME
 
+@pytest.mark.skip(reason="not working")
+def test_retrieve_mail_username_error():
+    with pytest.raises(KeyError):
+        Config._retrieve_mail_username()
+
 def test_retrieve_facebook_tokens(monkeypatch_setup):
     Config._retrieve_facebook_tokens()
     assert Config.FACEBOOK_APP_TOKENS == FBOOK_APP_TOKENS
