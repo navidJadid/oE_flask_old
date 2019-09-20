@@ -1,6 +1,7 @@
 import pytest
 import  webrob.config.settings
 from webrob.config.settings import Config
+import pyjsonrpc
 
 MAIL_PASSWORD = 'abc'
 MAIL_SERVER = 'smtp.gmail.com'
@@ -18,6 +19,8 @@ SQLALCHEMY_DATABASE_URI = 'postgresql://docker@127.17.0.82:5000/docker'
 POSTGRES_PORT_5432_TCP_ADDR = '127.17.0.82'
 POSTGRES_PORT_5432_TCP_PORT = '5000'
 
+
+#TODO
 def oauth_token_mock(token_service_name):
     service_tokens = ('{}_APP_TOKENS'.format(token_service_name))
     service_tokens = ("Paul01", "abCD-ef123hi/456")
@@ -75,6 +78,10 @@ def test_retrieve_mail_password_error():
 def test_retrieve_sqlalchemy_db_uri(monkeypatch_setup):
     Config._retrieve_sqlalchemy_db_uri()
     assert Config.SQLALCHEMY_DATABASE_URI == SQLALCHEMY_DATABASE_URI
+
+def test_retrieve_sqlalchemy_db_uri_error():
+    with pytest.raises(KeyError):
+        Config._retrieve_sqlalchemy_db_uri()
 
 def test_retrieve_mail_server(monkeypatch_setup):
     Config._retrieve_mail_server()
@@ -148,8 +155,6 @@ def test_retrieve_mail_server_vars(monkeypatch_setup):
     assert  Config.MAIL_USE_SSL == MAIL_USE_SSL
     assert Config.MAIL_USERNAME == MAIL_USERNAME
     assert Config.MAIL_PASSWORD == MAIL_PASSWORD
-
-
 
 
 
