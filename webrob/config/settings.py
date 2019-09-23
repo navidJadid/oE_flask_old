@@ -141,6 +141,7 @@ class Config:
 
     @staticmethod
     def _init_http_client():
-        Config.HTTP_CLIENT = pyjsonrpc.HttpClient(
-            url="http://" + evg.get_required_variable('DOCKERBRIDGE_PORT_5001_TCP_ADDR') +
-                ':' + evg.get_required_variable('DOCKERBRIDGE_PORT_5001_TCP_PORT'))
+        url = "http://{}:{}".format(
+            evg.get_required_variable('DOCKERBRIDGE_PORT_5001_TCP_ADDR'),
+            evg.get_required_variable('DOCKERBRIDGE_PORT_5001_TCP_PORT'))
+        Config.HTTP_CLIENT = pyjsonrpc.HttpClient(url)
