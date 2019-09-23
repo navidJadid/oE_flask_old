@@ -1,14 +1,10 @@
 import pytest
-import  webrob.config.settings
+from  webrob.config import settings
 from webrob.config.settings import Config
 import pyjsonrpc
 import webrob.test.config.settings_constants as CONSTANT
 
-#TODO
-def oauth_token_mock(token_service_name):
-    service_tokens = ('{}_APP_TOKENS'.format(token_service_name))
-    service_tokens = ("Paul01", "abCD-ef123hi/456")
-    return service_tokens
+
 
 @pytest.fixture
 def monkeypatch_setup(monkeypatch):
@@ -30,6 +26,8 @@ def monkeypatch_setup(monkeypatch):
     monkeypatch.setenv('POSTGRES_PORT_5432_TCP_ADDR', CONSTANT.POSTGRES_PORT_5432_TCP_ADDR)
     monkeypatch.setenv('POSTGRES_PORT_5432_TCP_PORT', CONSTANT.POSTGRES_PORT_5432_TCP_PORT)
 
+    monkeypatch.setenv('DOCKERBRIDGE_PORT_5001_TCP_ADDR', CONSTANT.DOCKBRIDGE_PORT_5001_TCP_ADDR)
+    monkeypatch.setenv('DOCKERBRIDGE_PORT_5001_TCP_PORT', CONSTANT.DOCKBRIDGE_PORT_5001_TCP_PORT)
 
 
     # TODO: mock all other environment variables, so it does not need to be done twice
@@ -40,6 +38,11 @@ def monkeypatch_setup(monkeypatch):
 
 # TODO:
 #   add tests for all other environment variables
+
+def test_init_http_client(monkeypatch_setup):
+    Config._init_http_client()
+    assert type(Config.HTTP_CLIENT) is pyjsonrpc.HttpClient
+    assert Config.HTTP_CLIENT.url == CONSTANT.URL
 
 def test_variables_loaded():
     assert Config.config_variables_initialized() == False
