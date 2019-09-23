@@ -4,7 +4,13 @@ from webrob.config.settings import Config
 import pyjsonrpc
 import webrob.test.config.settings_constants as CONSTANT
 
+class OauthMock:
+    @staticmethod
+    def __call__(self):
+        service_tokens = ("Paul01", "abCD-ef123hi/456")
+        return service_tokens
 
+get_oauth_mock = OauthMock()
 
 @pytest.fixture
 def monkeypatch_setup(monkeypatch):
@@ -29,6 +35,7 @@ def monkeypatch_setup(monkeypatch):
     monkeypatch.setenv('DOCKERBRIDGE_PORT_5001_TCP_ADDR', CONSTANT.DOCKBRIDGE_PORT_5001_TCP_ADDR)
     monkeypatch.setenv('DOCKERBRIDGE_PORT_5001_TCP_PORT', CONSTANT.DOCKBRIDGE_PORT_5001_TCP_PORT)
 
+    monkeypatch.setattr(Config, '_oauth_token', get_oauth_mock)
 
     # TODO: mock all other environment variables, so it does not need to be done twice
     return monkeypatch
@@ -38,6 +45,11 @@ def monkeypatch_setup(monkeypatch):
 
 # TODO:
 #   add tests for all other environment variables
+
+def test_oauth_token(monkeypatch_setup):
+    token = Config._oauth_token('GOOGLE')
+    print'token = {}'.format(token)
+    assert token == CONSTANT.OAUTH_TOKENS
 
 def test_init_http_client(monkeypatch_setup):
     Config._init_http_client()
