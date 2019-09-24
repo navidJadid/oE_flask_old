@@ -140,6 +140,10 @@ def test_retrieve_github_tokens(monkeypatch_setup):
     Config._retrieve_github_tokens()
     assert  Config.GITHUB_APP_TOKENS == CONSTANT.GIT_APP_TOKENS
 
+def test_retrieve_github_tokens_error():
+    Config._retrieve_github_tokens()
+    assert Config.GITHUB_APP_TOKENS == (None, None)
+
 def test_retrieve_google_tokens(monkeypatch_setup):
     Config._retrieve_google_tokens()
     assert  Config.GOOGLE_APP_TOKENS == CONSTANT.GOOGLE_APP_TOKENS
