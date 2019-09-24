@@ -23,6 +23,7 @@ def monkeypatch_setup(monkeypatch):
     monkeypatch.setenv('OPENEASE_ROS_DISTRIBUTION', CONSTANT.ROS_DISTRIBUTION)
     monkeypatch.setenv('POSTGRES_PORT_5432_TCP_ADDR', CONSTANT.POSTGRES_PORT_5432_TCP_ADDR)
     monkeypatch.setenv('POSTGRES_PORT_5432_TCP_PORT', CONSTANT.POSTGRES_PORT_5432_TCP_PORT)
+    monkeypatch.setenv('OPENEASE_ROS_DISTRIBUTION', CONSTANT.ROS_DISTRIBUTION)
 
     monkeypatch.setenv('DOCKERBRIDGE_PORT_5001_TCP_ADDR', CONSTANT.DOCKBRIDGE_PORT_5001_TCP_ADDR)
     monkeypatch.setenv('DOCKERBRIDGE_PORT_5001_TCP_PORT', CONSTANT.DOCKBRIDGE_PORT_5001_TCP_PORT)
@@ -166,6 +167,9 @@ def test_oauth_tokens_with_default_none():
     assert Config.GITHUB_APP_TOKENS == (None, None)
     assert Config.GOOGLE_APP_TOKENS == (None, None)
 
+def test_retrieve_ros_distribution(monkeypatch_setup):
+    Config._retrieve_ros_distribution()
+    assert Config.ROS_DISTRIBUTION == CONSTANT.ROS_DISTRIBUTION
 
 def test_retrieve_ros_distribution_default():
     Config._retrieve_ros_distribution()
