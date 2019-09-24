@@ -194,6 +194,18 @@ def test_retrieve_mesh_repositories_default():
     Config._retrieve_mesh_repositories()
     assert Config.MESH_REPOSITORIES == CONSTANT.MESH_REPO_DEFAULT
 
+def test_init_vars(monkeypatch_setup):
+    Config.init_vars()
+    assert Config.SQLALCHEMY_DATABASE_URI == CONSTANT.SQLALCHEMY_DATABASE_URI
+    assert Config.MESH_REPOSITORIES == CONSTANT.MESH_REPOSITORIES
+    assert Config.ROS_DISTRIBUTION == CONSTANT.ROS_DISTRIBUTION
+    test_retrieve_mail_server_vars(monkeypatch_setup)
+    test_retrieve_oauth_tokens(monkeypatch_setup)
+    test_init_http_client(monkeypatch_setup)
+    assert Config._variables_loaded == True
+
+
+
 
 
 
