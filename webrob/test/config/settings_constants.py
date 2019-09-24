@@ -20,3 +20,6 @@ DOCKBRIDGE_PORT_5001_TCP_PORT = '5001'
 URL = "http://170.17.0.60:5001"
 
 OAUTH_TOKENS = ("Paul01", "abCD-ef123hi/456")
+
+OPENEASE_MESHES = 'git https://github.com/PR2/pr2_common,svn https://svn.com/PR2/pr2_common'
+MESH_REPOSITORIES = [('git', 'https://github.com/PR2/pr2_common'), ('svn', 'https://svn.com/PR2/pr2_common')]

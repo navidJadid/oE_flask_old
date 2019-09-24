@@ -28,6 +28,8 @@ def monkeypatch_setup(monkeypatch):
     monkeypatch.setenv('DOCKERBRIDGE_PORT_5001_TCP_ADDR', CONSTANT.DOCKBRIDGE_PORT_5001_TCP_ADDR)
     monkeypatch.setenv('DOCKERBRIDGE_PORT_5001_TCP_PORT', CONSTANT.DOCKBRIDGE_PORT_5001_TCP_PORT)
 
+    monkeypatch.setenv('OPENEASE_MESHES', CONSTANT.OPENEASE_MESHES)
+
     # TODO: mock all other environment variables, so it does not need to be done twice
     return monkeypatch
 
@@ -184,6 +186,9 @@ def test_retrieve_mail_server_vars(monkeypatch_setup):
     assert Config.MAIL_USERNAME == CONSTANT.MAIL_USERNAME
     assert Config.MAIL_PASSWORD == CONSTANT.MAIL_PASSWORD
 
+def test_retrieve_mesh_repositories(monkeypatch_setup):
+    Config._retrieve_mesh_repositories()
+    assert Config.MESH_REPOSITORIES == CONSTANT.MESH_REPOSITORIES
 
 
 
