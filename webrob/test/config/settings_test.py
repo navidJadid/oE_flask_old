@@ -45,6 +45,10 @@ def test_init_http_client(monkeypatch_setup):
     assert type(Config.HTTP_CLIENT) is pyjsonrpc.HttpClient
     assert Config.HTTP_CLIENT.url == CONSTANT.URL
 
+def test_init_http_client_error():
+    with pytest.raises(KeyError):
+        Config._init_http_client()
+
 def test_variables_loaded():
     assert Config.config_variables_initialized() == False
 
