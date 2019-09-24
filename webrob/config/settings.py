@@ -63,9 +63,9 @@ class Config:
 
     @staticmethod
     def _retrieve_sqlalchemy_db_uri():
-        Config.SQLALCHEMY_DATABASE_URI = 'postgresql://docker@' + \
-                                         evg.get_required_variable('POSTGRES_PORT_5432_TCP_ADDR') + ':' + \
-                                         evg.get_required_variable('POSTGRES_PORT_5432_TCP_PORT') + '/docker'
+        URI = "postgresql://docker@{}:{}/docker".format(evg.get_required_variable('POSTGRES_PORT_5432_TCP_ADDR'),
+                                                        evg.get_required_variable('POSTGRES_PORT_5432_TCP_PORT'))
+        Config.SQLALCHEMY_DATABASE_URI = URI
 
     @staticmethod
     def _retrieve_mesh_repositories():
