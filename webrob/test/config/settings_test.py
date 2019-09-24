@@ -124,6 +124,10 @@ def test_retrieve_facebook_tokens(monkeypatch_setup):
     Config._retrieve_facebook_tokens()
     assert Config.FACEBOOK_APP_TOKENS == CONSTANT.FBOOK_APP_TOKENS
 
+def test_retrieve_facebook_tokens_error():
+    Config._retrieve_facebook_tokens()
+    assert  Config.FACEBOOK_APP_TOKENS == (None,None)
+
 def test_retrieve_twitter_tokens(monkeypatch_setup):
     Config._retrieve_twitter_tokens()
     assert Config.TWITTER_APP_TOKENS == CONSTANT.TWIT_APP_TOKENS
