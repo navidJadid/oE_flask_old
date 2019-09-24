@@ -166,7 +166,8 @@ def test_oauth_tokens_with_default_none():
     assert Config.GITHUB_APP_TOKENS == (None, None)
     assert Config.GOOGLE_APP_TOKENS == (None, None)
 
-def test_retrieve_ros_distribution():
+
+def test_retrieve_ros_distribution_default():
     Config._retrieve_ros_distribution()
     assert Config.ROS_DISTRIBUTION == CONSTANT.ROS_DISTRIBUTION
 
