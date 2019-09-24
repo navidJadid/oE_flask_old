@@ -40,6 +40,10 @@ def test_oauth_token(monkeypatch_setup):
     token = Config._oauth_token('TWITTER')
     assert token == CONSTANT.TWIT_APP_TOKENS
 
+def test_oauth_token_error():
+    tokens = Config._oauth_token('TWITTER')
+    assert tokens == (None,None)
+
 def test_init_http_client(monkeypatch_setup):
     Config._init_http_client()
     assert type(Config.HTTP_CLIENT) is pyjsonrpc.HttpClient
