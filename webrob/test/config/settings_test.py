@@ -132,6 +132,10 @@ def test_retrieve_twitter_tokens(monkeypatch_setup):
     Config._retrieve_twitter_tokens()
     assert Config.TWITTER_APP_TOKENS == CONSTANT.TWIT_APP_TOKENS
 
+def test_retrieve_twitter_tokens_error():
+    Config._retrieve_twitter_tokens()
+    assert Config.TWITTER_APP_TOKENS == (None, None)
+
 def test_retrieve_github_tokens(monkeypatch_setup):
     Config._retrieve_github_tokens()
     assert  Config.GITHUB_APP_TOKENS == CONSTANT.GIT_APP_TOKENS
