@@ -148,6 +148,10 @@ def test_retrieve_google_tokens(monkeypatch_setup):
     Config._retrieve_google_tokens()
     assert  Config.GOOGLE_APP_TOKENS == CONSTANT.GOOGLE_APP_TOKENS
 
+def test_retrieve_google_tokens_error():
+    Config._retrieve_google_tokens()
+    assert Config.GOOGLE_APP_TOKENS == (None, None)
+
 def test_retrieve_oauth_tokens(monkeypatch_setup):
     Config._retrieve_oauth_tokens()
     assert Config.FACEBOOK_APP_TOKENS == CONSTANT.FBOOK_APP_TOKENS
