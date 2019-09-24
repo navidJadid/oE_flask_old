@@ -190,6 +190,11 @@ def test_retrieve_mesh_repositories(monkeypatch_setup):
     Config._retrieve_mesh_repositories()
     assert Config.MESH_REPOSITORIES == CONSTANT.MESH_REPOSITORIES
 
+def test_retrieve_mesh_repositories_default():
+    Config._retrieve_mesh_repositories()
+    assert Config.MESH_REPOSITORIES == CONSTANT.MESH_REPO_DEFAULT
+
+
 
 
 
