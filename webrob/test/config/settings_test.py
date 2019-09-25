@@ -143,7 +143,7 @@ def test_retrieve_github_tokens(monkeypatch_setup):
     Config._retrieve_github_tokens()
     assert  Config.GITHUB_APP_TOKENS == CONSTANT.GIT_APP_TOKENS
 
-def test_retrieve_github_tokens_error():
+def test_github_tokens_with_default_none():
     Config._retrieve_github_tokens()
     assert Config.GITHUB_APP_TOKENS == (None, None)
 
