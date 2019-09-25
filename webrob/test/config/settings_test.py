@@ -135,7 +135,7 @@ def test_retrieve_twitter_tokens(monkeypatch_setup):
     Config._retrieve_twitter_tokens()
     assert Config.TWITTER_APP_TOKENS == CONSTANT.TWIT_APP_TOKENS
 
-def test_retrieve_twitter_tokens_error():
+def test_twitter_tokens_with_default_none():
     Config._retrieve_twitter_tokens()
     assert Config.TWITTER_APP_TOKENS == (None, None)
 
