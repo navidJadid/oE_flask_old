@@ -119,7 +119,7 @@ def test_retrieve_mail_username(monkeypatch_setup):
     Config._retrieve_mail_username()
     assert Config.MAIL_USERNAME == CONSTANT.MAIL_USERNAME
 
-def test_mail_username_without_default():
+def test_mail_username_with_default_none():
     Config._retrieve_mail_username()
     assert Config.MAIL_USERNAME == None
 
