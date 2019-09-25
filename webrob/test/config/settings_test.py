@@ -43,7 +43,7 @@ def test_oauth_token(monkeypatch_setup):
     token = Config._oauth_token('TWITTER')
     assert token == CONSTANT.TWIT_APP_TOKENS
 
-def test_oauth_token_error():
+def test_oauth_token_with_default_none():
     tokens = Config._oauth_token('TWITTER')
     assert tokens == (None,None)
 
