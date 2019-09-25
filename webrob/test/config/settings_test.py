@@ -162,7 +162,7 @@ def test_retrieve_oauth_tokens(monkeypatch_setup):
     assert  Config.GITHUB_APP_TOKENS == CONSTANT.GIT_APP_TOKENS
     assert  Config.GOOGLE_APP_TOKENS == CONSTANT.GOOGLE_APP_TOKENS
 
-def test_oauth_tokens_with_default_none():
+def test_retrieve_oauth_tokens_with_default_none():
     Config._retrieve_oauth_tokens()
     assert Config.FACEBOOK_APP_TOKENS == (None,None)
     assert Config.TWITTER_APP_TOKENS == (None, None)
