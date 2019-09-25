@@ -10,5 +10,5 @@ class Tutorial(db.Model):
     page = db.Column(db.Integer(), nullable=False)
 
 
-def read_tutorial_page(cat, page):
-    return Tutorial.query.filter_by(cat_id=cat, page=page).first()
+def read_tutorial_page(cat_id, page):
+    return Tutorial.query.filter_by(cat_id=cat_id, page=page).first()
