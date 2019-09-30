@@ -45,7 +45,7 @@ def test_oauth_token(monkeypatch_setup):
 
 def test_oauth_token_with_default_none():
     tokens = Config._oauth_token('TWITTER')
-    assert tokens == (None,None)
+    assert tokens == CONSTANT.NULL_TOKENS
 
 def test_init_http_client(monkeypatch_setup):
     Config._init_http_client()
@@ -129,7 +129,7 @@ def test_retrieve_facebook_tokens(monkeypatch_setup):
 
 def test_facebook_tokens_without_default():
     Config._retrieve_facebook_tokens()
-    assert  Config.FACEBOOK_APP_TOKENS == (None,None)
+    assert  Config.FACEBOOK_APP_TOKENS == CONSTANT.NULL_TOKENS
 
 def test_retrieve_twitter_tokens(monkeypatch_setup):
     Config._retrieve_twitter_tokens()
@@ -137,7 +137,7 @@ def test_retrieve_twitter_tokens(monkeypatch_setup):
 
 def test_twitter_tokens_with_default_none():
     Config._retrieve_twitter_tokens()
-    assert Config.TWITTER_APP_TOKENS == (None, None)
+    assert Config.TWITTER_APP_TOKENS == CONSTANT.NULL_TOKENS
 
 def test_retrieve_github_tokens(monkeypatch_setup):
     Config._retrieve_github_tokens()
@@ -145,7 +145,7 @@ def test_retrieve_github_tokens(monkeypatch_setup):
 
 def test_github_tokens_with_default_none():
     Config._retrieve_github_tokens()
-    assert Config.GITHUB_APP_TOKENS == (None, None)
+    assert Config.GITHUB_APP_TOKENS == CONSTANT.NULL_TOKENS
 
 def test_retrieve_google_tokens(monkeypatch_setup):
     Config._retrieve_google_tokens()
@@ -153,7 +153,7 @@ def test_retrieve_google_tokens(monkeypatch_setup):
 
 def test_google_tokens_with_default_none():
     Config._retrieve_google_tokens()
-    assert Config.GOOGLE_APP_TOKENS == (None, None)
+    assert Config.GOOGLE_APP_TOKENS == CONSTANT.NULL_TOKENS
 
 def test_retrieve_oauth_tokens(monkeypatch_setup):
     Config._retrieve_oauth_tokens()
@@ -164,10 +164,10 @@ def test_retrieve_oauth_tokens(monkeypatch_setup):
 
 def test_retrieve_oauth_tokens_with_default_none():
     Config._retrieve_oauth_tokens()
-    assert Config.FACEBOOK_APP_TOKENS == (None,None)
-    assert Config.TWITTER_APP_TOKENS == (None, None)
-    assert Config.GITHUB_APP_TOKENS == (None, None)
-    assert Config.GOOGLE_APP_TOKENS == (None, None)
+    assert Config.FACEBOOK_APP_TOKENS == CONSTANT.NULL_TOKENS
+    assert Config.TWITTER_APP_TOKENS == CONSTANT.NULL_TOKENS
+    assert Config.GITHUB_APP_TOKENS == CONSTANT.NULL_TOKENS
+    assert Config.GOOGLE_APP_TOKENS == CONSTANT.NULL_TOKENS
 
 def test_retrieve_ros_distribution(monkeypatch_setup):
     Config._retrieve_ros_distribution()
