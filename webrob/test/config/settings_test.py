@@ -30,14 +30,10 @@ def monkeypatch_setup(monkeypatch):
 
     monkeypatch.setenv('OPENEASE_MESHES', CONSTANT.OPENEASE_MESHES)
 
-    # TODO: mock all other environment variables, so it does not need to be done twice
     return monkeypatch
 
 
 # -------------------------------TESTS---------------------------------
-
-# TODO:
-#   add tests for all other environment variables
 
 def test_oauth_token(monkeypatch_setup):
     token = Config._oauth_token('TWITTER')
