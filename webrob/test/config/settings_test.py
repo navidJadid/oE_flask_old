@@ -3,7 +3,7 @@ from  webrob.config import settings
 from webrob.config.settings import Config
 import pyjsonrpc
 import webrob.test.config.settings_constants as CONSTANT
-from settings_token_test import test_retrieve_oauth_tokens as test_retrieve_oauth_tokens
+from settings_tokens_test import test_retrieve_oauth_tokens as test_retrieve_oauth_tokens
 
 @pytest.fixture
 def monkeypatch_setup(monkeypatch):
