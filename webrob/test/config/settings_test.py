@@ -3,6 +3,7 @@ from  webrob.config import settings
 from webrob.config.settings import Config
 import pyjsonrpc
 import webrob.test.config.settings_constants as CONSTANT
+from settings_token_test import test_retrieve_oauth_tokens as test_retrieve_oauth_tokens
 
 @pytest.fixture
 def monkeypatch_setup(monkeypatch):
@@ -35,14 +36,6 @@ def monkeypatch_setup(monkeypatch):
 
 # -------------------------------TESTS---------------------------------
 
-def test_oauth_token(monkeypatch_setup):
-    token = Config._oauth_token('TWITTER')
-    assert token == CONSTANT.TWIT_APP_TOKENS
-
-def test_oauth_token_with_default_none():
-    tokens = Config._oauth_token('TWITTER')
-    assert tokens == CONSTANT.NULL_TOKENS
-
 def test_init_http_client(monkeypatch_setup):
     Config._init_http_client()
     assert type(Config.HTTP_CLIENT) is pyjsonrpc.HttpClient
@@ -55,16 +48,13 @@ def test_init_http_client_error():
 def test_variables_loaded():
     assert Config.config_variables_initialized() == False
 
-
 def test_set_variables_loaded_to_true():
     Config._set_variables_loaded_to_true()
     assert Config._variables_loaded == True
 
-
 def test_retrieve_mail_password(monkeypatch_setup):
     Config._retrieve_mail_password()
     assert Config.MAIL_PASSWORD == CONSTANT.MAIL_PASSWORD
-
 
 def test_retrieve_mail_password_error():
     with pytest.raises(KeyError):
@@ -81,7 +71,6 @@ def test_retrieve_sqlalchemy_db_uri_error():
 def test_retrieve_mail_server(monkeypatch_setup):
     Config._retrieve_mail_server()
     assert Config.MAIL_SERVER == CONSTANT.MAIL_SERVER
-
 
 def test_retrieve_mail_server_default():
     Config._retrieve_mail_server()
@@ -118,52 +107,6 @@ def test_retrieve_mail_username(monkeypatch_setup):
 def test_mail_username_with_default_none():
     Config._retrieve_mail_username()
     assert Config.MAIL_USERNAME == None
-
-def test_retrieve_facebook_tokens(monkeypatch_setup):
-    Config._retrieve_facebook_tokens()
-    assert Config.FACEBOOK_APP_TOKENS == CONSTANT.FBOOK_APP_TOKENS
-
-def test_facebook_tokens_without_default():
-    Config._retrieve_facebook_tokens()
-    assert  Config.FACEBOOK_APP_TOKENS == CONSTANT.NULL_TOKENS
-
-def test_retrieve_twitter_tokens(monkeypatch_setup):
-    Config._retrieve_twitter_tokens()
-    assert Config.TWITTER_APP_TOKENS == CONSTANT.TWIT_APP_TOKENS
-
-def test_twitter_tokens_with_default_none():
-    Config._retrieve_twitter_tokens()
-    assert Config.TWITTER_APP_TOKENS == CONSTANT.NULL_TOKENS
-
-def test_retrieve_github_tokens(monkeypatch_setup):
-    Config._retrieve_github_tokens()
-    assert  Config.GITHUB_APP_TOKENS == CONSTANT.GIT_APP_TOKENS
-
-def test_github_tokens_with_default_none():
-    Config._retrieve_github_tokens()
-    assert Config.GITHUB_APP_TOKENS == CONSTANT.NULL_TOKENS
-
-def test_retrieve_google_tokens(monkeypatch_setup):
-    Config._retrieve_google_tokens()
-    assert  Config.GOOGLE_APP_TOKENS == CONSTANT.GOOGLE_APP_TOKENS
-
-def test_google_tokens_with_default_none():
-    Config._retrieve_google_tokens()
-    assert Config.GOOGLE_APP_TOKENS == CONSTANT.NULL_TOKENS
-
-def test_retrieve_oauth_tokens(monkeypatch_setup):
-    Config._retrieve_oauth_tokens()
-    assert Config.FACEBOOK_APP_TOKENS == CONSTANT.FBOOK_APP_TOKENS
-    assert Config.TWITTER_APP_TOKENS == CONSTANT.TWIT_APP_TOKENS
-    assert  Config.GITHUB_APP_TOKENS == CONSTANT.GIT_APP_TOKENS
-    assert  Config.GOOGLE_APP_TOKENS == CONSTANT.GOOGLE_APP_TOKENS
-
-def test_retrieve_oauth_tokens_with_default_none():
-    Config._retrieve_oauth_tokens()
-    assert Config.FACEBOOK_APP_TOKENS == CONSTANT.NULL_TOKENS
-    assert Config.TWITTER_APP_TOKENS == CONSTANT.NULL_TOKENS
-    assert Config.GITHUB_APP_TOKENS == CONSTANT.NULL_TOKENS
-    assert Config.GOOGLE_APP_TOKENS == CONSTANT.NULL_TOKENS
 
 def test_retrieve_ros_distribution(monkeypatch_setup):
     Config._retrieve_ros_distribution()
