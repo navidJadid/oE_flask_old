@@ -12,9 +12,9 @@ GIT_APP_TOKENS = ('Paul01', 'abCD-ef123hi')
 GOOGLE_APP_TOKENS = ('Paul01', 'abCD-ef123hi/456')
 SERVICE_TOKENS = ('Paul01', 'abCD-ef123hi/456')
 ROS_DISTRIBUTION = 'indigo'
-SQLALCHEMY_DATABASE_URI = 'postgresql://docker@127.17.0.82:5000/docker'
-POSTGRES_PORT_5432_TCP_ADDR = '127.17.0.82'
-POSTGRES_PORT_5432_TCP_PORT = '5000'
+SQLALCHEMY_DATABASE_URI = 'postgresql://docker@127.0.0.1:5432/docker'
+POSTGRES_PORT_5432_TCP_ADDR = '127.0.0.1'
+POSTGRES_PORT_5432_TCP_PORT = '5432'
 NULL_TOKENS = (None,None)
 
 DOCKBRIDGE_PORT_5001_TCP_ADDR = '170.17.0.60'
@@ -24,7 +24,9 @@ URL = 'http://170.17.0.60:5001'
 
 OAUTH_TOKENS = ('Paul01', 'abCD-ef123hi/456')
 
-OPENEASE_MESHES = 'git https://github.com/PR2/pr2_common,svn https://svn.com/PR2/pr2_common'
+GIT_REPO = 'git https://github.com/PR2/pr2_common'
+SVN_REPO = 'svn https://svn.com/PR2/pr2_common'
+OPENEASE_MESHES = '{},{}'.format(GIT_REPO,SVN_REPO)
 MESH_REPOSITORIES = [('git', 'https://github.com/PR2/pr2_common'), ('svn', 'https://svn.com/PR2/pr2_common')]
 MESH_REPO_DEFAULT = [('git', 'https://github.com/PR2/pr2_common')]
 
