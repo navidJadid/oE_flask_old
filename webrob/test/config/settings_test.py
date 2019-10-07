@@ -4,7 +4,7 @@ from webrob.config.settings import Config
 import pyjsonrpc
 import webrob.test.config.settings_constants as CONSTANT
 from settings_tokens_test import test_retrieve_oauth_tokens as test_retrieve_oauth_tokens
-
+from settings_tokens_test import setup_token_envs
 @pytest.fixture
 def monkeypatch_setup(monkeypatch):
     monkeypatch.setenv('OPENEASE_MAIL_PASSWORD', CONSTANT.MAIL_PASSWORD)
@@ -13,15 +13,6 @@ def monkeypatch_setup(monkeypatch):
     monkeypatch.setenv('OPENEASE_MAIL_USE_TLS', CONSTANT.MAIL_USE_TLS)
     monkeypatch.setenv('OPENEASE_MAIL_USE_SSL', CONSTANT.MAIL_USE_SSL)
     monkeypatch.setenv('OPENEASE_MAIL_USERNAME', CONSTANT.MAIL_USERNAME)
-    monkeypatch.setenv('FACEBOOK_APP_ID', CONSTANT.FBOOK_APP_TOKENS[0])
-    monkeypatch.setenv('FACEBOOK_APP_SECRET', CONSTANT.FBOOK_APP_TOKENS[1])
-    monkeypatch.setenv('TWITTER_APP_ID', CONSTANT.TWIT_APP_TOKENS[0])
-    monkeypatch.setenv('TWITTER_APP_SECRET', CONSTANT.TWIT_APP_TOKENS[1])
-    monkeypatch.setenv('GITHUB_APP_ID', CONSTANT.GIT_APP_TOKENS[0])
-    monkeypatch.setenv('GITHUB_APP_SECRET', CONSTANT.GIT_APP_TOKENS[1])
-    monkeypatch.setenv('GOOGLE_APP_ID', CONSTANT.GOOGLE_APP_TOKENS[0])
-    monkeypatch.setenv('GOOGLE_APP_SECRET', CONSTANT.GOOGLE_APP_TOKENS[1])
-    monkeypatch.setenv('OPENEASE_ROS_DISTRIBUTION', CONSTANT.ROS_DISTRIBUTION)
     monkeypatch.setenv('POSTGRES_PORT_5432_TCP_ADDR', CONSTANT.POSTGRES_PORT_5432_TCP_ADDR)
     monkeypatch.setenv('POSTGRES_PORT_5432_TCP_PORT', CONSTANT.POSTGRES_PORT_5432_TCP_PORT)
     monkeypatch.setenv('OPENEASE_ROS_DISTRIBUTION', CONSTANT.ROS_DISTRIBUTION)
@@ -30,6 +21,7 @@ def monkeypatch_setup(monkeypatch):
     monkeypatch.setenv('DOCKERBRIDGE_PORT_5001_TCP_PORT', CONSTANT.DOCKBRIDGE_PORT_5001_TCP_PORT)
 
     monkeypatch.setenv('OPENEASE_MESHES', CONSTANT.OPENEASE_MESHES)
+    setup_token_envs(monkeypatch)
 
     return monkeypatch
 
