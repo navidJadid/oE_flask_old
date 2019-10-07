@@ -2,9 +2,7 @@ import pytest
 from webrob.config.settings import Config
 import webrob.test.config.settings_constants as CONSTANT
 
-
-@pytest.fixture
-def monkeypatch_setup(monkeypatch):
+def setup_token_envs(monkeypatch):
     monkeypatch.setenv('FACEBOOK_APP_ID', CONSTANT.FBOOK_APP_TOKENS[0])
     monkeypatch.setenv('FACEBOOK_APP_SECRET', CONSTANT.FBOOK_APP_TOKENS[1])
     monkeypatch.setenv('TWITTER_APP_ID', CONSTANT.TWIT_APP_TOKENS[0])
@@ -15,6 +13,11 @@ def monkeypatch_setup(monkeypatch):
     monkeypatch.setenv('GOOGLE_APP_SECRET', CONSTANT.GOOGLE_APP_TOKENS[1])
 
     return monkeypatch
+
+
+@pytest.fixture
+def monkeypatch_setup(monkeypatch):
+    return setup_token_envs(monkeypatch)
 
 # *******************TOKEN TESTS********************
 
