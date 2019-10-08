@@ -9,7 +9,7 @@ TUTORIAL_TITLE = 'ros installation'
 
 @pytest.fixture(scope="module")
 def create_database():
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tutotest.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test/models/tutotest.db'
     from webrob.app_and_db import db
     from  webrob.models.tutorials import Tutorial
     from webrob.models.tutorials import Tutorial, read_tutorial_page
