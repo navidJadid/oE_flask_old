@@ -1,74 +1,40 @@
 import pytest
-from webrob.app_and_db import db
-from webrob.models.tutorials import Tutorial
-import webrob.models.tutorials as tutorials
+from webrob.app_and_db import app
 
-MOCK_DB = list()
-MOCK_DB  = [
-             {
-            'id': 1,
-            'cat_id': 'robot programing',
-            'cat_title': 'ros tutorial',
-            'title': 'ros installation',
-            'text': 'check ros documentation',
-            'page': 1
-            },
+backup_config = app.config['SQLALCHEMY_DATABASE_URI']
+CAT_ID = 'robot programming'
+PAGE = 1
 
-            {
-                'id': 2,
-                'cat_id': 'robot programing',
-                'cat_title': 'ros tutorial',
-                'title': 'ros installation',
-                'text': 'check ros documentation',
-                'page': 1
-            }
+TUTORIAL_TITLE = 'ros installation'
 
-        ]
+@pytest.fixture(scope="module")
+def create_database():
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///tutotest.db'
+    from webrob.app_and_db import db
+    from  webrob.models.tutorials import Tutorial
+    from webrob.models.tutorials import Tutorial, read_tutorial_page
 
+    testDB = db
+    testDB.create_all()
+    tut1 = Tutorial(cat_id='robot programming', cat_title='ros tutorial', title='ros installation',
+                    text='check ros documentation', page=1)
+    tut2 = Tutorial(cat_id='robot programming', cat_title='ros tutorial', title='getting started',
+                    text='installing and configuring ros workspace', page=1)
+    db.session.add(tut1)
+    db.session.add(tut2)
+    db.session.commit()
+    result = read_tutorial_page(CAT_ID,PAGE)
 
-class MockModel():
-    def __init__(self, cat_id, page):
-        self.cat_id = cat_id
-        self.page = page
-
-    def get_tutorial(self):
-        result = list()
-        result = [
-             {
-            'id': 1,
-            'cat_id': self.cat_id,
-            'cat_title': 'ros tutorial',
-            'title': 'ros installation',
-            'text': 'check ros documentation',
-            'page': self.page
-            },
-
-            {
-                'id': 2,
-                'cat_id': self.cat_id,
-                'cat_title': 'ros tutorial',
-                'title': 'ros installation',
-                'text': 'check ros documentation',
-                'page': self.page
-            }
-
-        ]
-        return result
+    yield result
+    testDB.drop_all()
+    app.config['SQLALCHEMY_DATABASE_URI'] = backup_config
 
 
-def read_tuto_page(cat_id, page):
-    MOCK_MODEL = MockModel(cat_id, page)
-    output = MOCK_MODEL.get_tutorial()
-    return output
+def test_read_tutorial_page(create_database):
+    result = create_database
+    assert result.title == TUTORIAL_TITLE
 
 
-@pytest.fixture
-def monkeypatch_setup(monkeypatch):
-    monkeypatch.setattr(tutorials, 'read_tutorial_page', read_tuto_page)
-
-    return monkeypatch
 
 
-def test_read_tutorial_page(monkeypatch_setup):
-    result = tutorials.read_tutorial_page('robot programing', 1)
-    assert result == MOCK_DB
+
