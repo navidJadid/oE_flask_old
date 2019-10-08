@@ -19,9 +19,9 @@ def create_database():
                     text='check ros documentation', page=1)
     tut2 = Tutorial(cat_id='robot programming', cat_title='ros tutorial', title='getting started',
                     text='installing and configuring ros workspace', page=1)
-    db.session.add(tut1)
-    db.session.add(tut2)
-    db.session.commit()
+    testDB.session.add(tut1)
+    testDB.session.add(tut2)
+    testDB.session.commit()
     result = read_tutorial_page(CAT_ID,PAGE)
 
     yield result
