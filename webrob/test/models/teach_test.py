@@ -29,6 +29,7 @@ def create_course_task_rows():
 def create_database():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test/models/teachingtest.db'
 
+    testDB.drop_all()
     testDB.create_all()
     create_course_exercise_rows()
     create_course_task_rows()
@@ -40,7 +41,6 @@ def test_get_exercises():
     exercises = get_exercises(course_id = CONSTANTS.COURSE_ID_ONE)
     title = exercises[0].title
     assert title == CONSTANTS.TITLE_ONE
-    testDB.drop_all()
     app.config['SQLALCHEMY_DATABASE_URI'] = backup_config
 
 def test_get_tasks():
@@ -49,7 +49,6 @@ def test_get_tasks():
     tasks = get_tasks(exercise_id = CONSTANTS.EXERCISE_ID_ONE)
     text = tasks[1].text
     assert text == CONSTANTS.TEXT_TWO
-    testDB.drop_all()
     app.config['SQLALCHEMY_DATABASE_URI'] = backup_config
 
 def test_get_task():
@@ -57,7 +56,6 @@ def test_get_task():
     create_database()
     task = get_task(exercise_id = CONSTANTS.EXERCISE_ID_ONE, task_number = CONSTANTS.TASK_NUM_ONE)
     assert task.title == CONSTANTS.TASK_TITLE_ONE
-    testDB.drop_all()
     app.config['SQLALCHEMY_DATABASE_URI'] = backup_config
 
 
