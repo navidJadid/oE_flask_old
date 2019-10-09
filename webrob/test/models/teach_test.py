@@ -43,3 +43,12 @@ def test_get_exercises():
     testDB.drop_all()
     app.config['SQLALCHEMY_DATABASE_URI'] = backup_config
 
+def test_get_tasks():
+    from webrob.models.teaching import get_tasks
+    create_database()
+    tasks = get_tasks(exercise_id = CONSTANTS.EXERCISE_ID_ONE)
+    text = tasks[1].text
+    assert text == CONSTANTS.TEXT_TWO
+    testDB.drop_all()
+    app.config['SQLALCHEMY_DATABASE_URI'] = backup_config
+
