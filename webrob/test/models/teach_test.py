@@ -26,3 +26,10 @@ def create_course_task_rows():
     testDB.session.add(task1)
     testDB.session.add(task2)
 
+def create_database():
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test/models/teachingtest.db'
+
+    testDB.create_all()
+    create_course_exercise_rows()
+    create_course_task_rows()
+    testDB.session.commit()
