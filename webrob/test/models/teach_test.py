@@ -33,3 +33,13 @@ def create_database():
     create_course_exercise_rows()
     create_course_task_rows()
     testDB.session.commit()
+
+def test_get_exercises():
+    from webrob.models.teaching import get_exercises
+    create_database()
+    exercises = get_exercises(course_id = CONSTANTS.COURSE_ID_ONE)
+    title = exercises[0].title
+    assert title == CONSTANTS.TITLE_ONE
+    testDB.drop_all()
+    app.config['SQLALCHEMY_DATABASE_URI'] = backup_config
+
