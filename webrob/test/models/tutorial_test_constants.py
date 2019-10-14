@@ -9,4 +9,6 @@ TEXT_ONE = 'check ros documentation'
 TITLE_TWO = 'getting started'
 TEXT_TWO = 'installing and configuring ros workspace'
 
+TEST_DB_PATH = 'sqlite:///test/models/tutotest.db'
+
 
