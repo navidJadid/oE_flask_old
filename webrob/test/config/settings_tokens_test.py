@@ -3,14 +3,14 @@ from webrob.config.settings import Config
 import webrob.test.config.settings_constants as CONSTANT
 
 def setup_token_envs(monkeypatch):
-    monkeypatch.setenv('FACEBOOK_APP_ID', CONSTANT.FBOOK_APP_TOKENS[0])
-    monkeypatch.setenv('FACEBOOK_APP_SECRET', CONSTANT.FBOOK_APP_TOKENS[1])
-    monkeypatch.setenv('TWITTER_APP_ID', CONSTANT.TWIT_APP_TOKENS[0])
-    monkeypatch.setenv('TWITTER_APP_SECRET', CONSTANT.TWIT_APP_TOKENS[1])
-    monkeypatch.setenv('GITHUB_APP_ID', CONSTANT.GIT_APP_TOKENS[0])
-    monkeypatch.setenv('GITHUB_APP_SECRET', CONSTANT.GIT_APP_TOKENS[1])
-    monkeypatch.setenv('GOOGLE_APP_ID', CONSTANT.GOOGLE_APP_TOKENS[0])
-    monkeypatch.setenv('GOOGLE_APP_SECRET', CONSTANT.GOOGLE_APP_TOKENS[1])
+    monkeypatch.setenv(CONSTANT.FBOOK_APP_ID, CONSTANT.FBOOK_APP_TOKENS[0])
+    monkeypatch.setenv(CONSTANT.FBOOK_APP_SECRET, CONSTANT.FBOOK_APP_TOKENS[1])
+    monkeypatch.setenv(CONSTANT.TWIT_APP_ID, CONSTANT.TWIT_APP_TOKENS[0])
+    monkeypatch.setenv(CONSTANT.TWIT_APP_SECRET, CONSTANT.TWIT_APP_TOKENS[1])
+    monkeypatch.setenv(CONSTANT.GIT_APP_ID, CONSTANT.GIT_APP_TOKENS[0])
+    monkeypatch.setenv(CONSTANT.GIT_APP_SECRET, CONSTANT.GIT_APP_TOKENS[1])
+    monkeypatch.setenv(CONSTANT.GOOGLE_APP_ID, CONSTANT.GOOGLE_APP_TOKENS[0])
+    monkeypatch.setenv(CONSTANT.GOOGLE_APP_SECRET, CONSTANT.GOOGLE_APP_TOKENS[1])
 
     return monkeypatch
 
