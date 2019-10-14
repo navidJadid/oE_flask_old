@@ -16,6 +16,10 @@ TEXT_ONE = 'write a python program that prints hello world to the console'
 TASK_TITLE_TWO = 'User Input program in python'
 TEXT_TWO = 'write a python program that accepts a user input data'
 
+TEST_DB_PATH = 'sqlite:///test/models/teachingtest.db'
+
+DATABASE_URI = 'SQLALCHEMY_DATABASE_URI'
+
 
 
 
