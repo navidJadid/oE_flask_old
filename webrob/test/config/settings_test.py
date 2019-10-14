@@ -5,22 +5,23 @@ import pyjsonrpc
 import webrob.test.config.settings_constants as CONSTANT
 from settings_tokens_test import test_retrieve_oauth_tokens as test_retrieve_oauth_tokens
 from settings_tokens_test import setup_token_envs
+
 @pytest.fixture
 def monkeypatch_setup(monkeypatch):
-    monkeypatch.setenv('OPENEASE_MAIL_PASSWORD', CONSTANT.MAIL_PASSWORD)
-    monkeypatch.setenv('OPENEASE_MAIL_SERVER', CONSTANT.MAIL_SERVER)
-    monkeypatch.setenv('OPENEASE_MAIL_PORT', CONSTANT.MAIL_PORT)
-    monkeypatch.setenv('OPENEASE_MAIL_USE_TLS', CONSTANT.MAIL_USE_TLS)
-    monkeypatch.setenv('OPENEASE_MAIL_USE_SSL', CONSTANT.MAIL_USE_SSL)
-    monkeypatch.setenv('OPENEASE_MAIL_USERNAME', CONSTANT.MAIL_USERNAME)
-    monkeypatch.setenv('POSTGRES_PORT_5432_TCP_ADDR', CONSTANT.POSTGRES_PORT_5432_TCP_ADDR)
-    monkeypatch.setenv('POSTGRES_PORT_5432_TCP_PORT', CONSTANT.POSTGRES_PORT_5432_TCP_PORT)
-    monkeypatch.setenv('OPENEASE_ROS_DISTRIBUTION', CONSTANT.ROS_DISTRIBUTION)
+    monkeypatch.setenv(CONSTANT.OPENEASE_MAIL_PASSWORD, CONSTANT.MAIL_PASSWORD)
+    monkeypatch.setenv(CONSTANT.OPENEASE_MAIL_SERVER, CONSTANT.MAIL_SERVER)
+    monkeypatch.setenv(CONSTANT.OPENEASE_MAIL_PORT, CONSTANT.MAIL_PORT)
+    monkeypatch.setenv(CONSTANT.OPENEASE_MAIL_TLS, CONSTANT.MAIL_USE_TLS)
+    monkeypatch.setenv(CONSTANT.OPENEASE_MAIL_SSL, CONSTANT.MAIL_USE_SSL)
+    monkeypatch.setenv(CONSTANT.OPENEASE_MAIL_USERNAME, CONSTANT.MAIL_USERNAME)
+    monkeypatch.setenv(CONSTANT.POSTGRES_PORT_TCP_ADDR, CONSTANT.POSTGRES_PORT_5432_TCP_ADDR)
+    monkeypatch.setenv(CONSTANT.POSTGRES_PORT_TCP_PORT, CONSTANT.POSTGRES_PORT_5432_TCP_PORT)
+    monkeypatch.setenv(CONSTANT.OPENEASE_ROS_DISTRIBUTION, CONSTANT.ROS_DISTRIBUTION)
 
-    monkeypatch.setenv('DOCKERBRIDGE_PORT_5001_TCP_ADDR', CONSTANT.DOCKBRIDGE_PORT_5001_TCP_ADDR)
-    monkeypatch.setenv('DOCKERBRIDGE_PORT_5001_TCP_PORT', CONSTANT.DOCKBRIDGE_PORT_5001_TCP_PORT)
+    monkeypatch.setenv(CONSTANT.DOCKERBRIDGE_PORT_TCP_ADDR, CONSTANT.DOCKBRIDGE_PORT_5001_TCP_ADDR)
+    monkeypatch.setenv(CONSTANT.DOCKERBRIDGE_PORT_TCP_PORT, CONSTANT.DOCKBRIDGE_PORT_5001_TCP_PORT)
 
-    monkeypatch.setenv('OPENEASE_MESHES', CONSTANT.OPENEASE_MESHES)
+    monkeypatch.setenv(CONSTANT.OPENEASE_MESHES, CONSTANT.OPENEASE_MESH_REPOS)
     setup_token_envs(monkeypatch)
 
     return monkeypatch
