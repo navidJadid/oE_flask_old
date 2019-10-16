@@ -11,4 +11,6 @@ TEXT_TWO = 'installing and configuring ros workspace'
 
 TEST_DB_PATH = 'sqlite:///test/models/tutotest.db'
 
+DATABASE_URI = 'SQLALCHEMY_DATABASE_URI'
+
 
