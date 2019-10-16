@@ -1,24 +1,32 @@
 # ****************** TEACHING TEST CONSTANTS ***********************
 
-COURSE_ID_ONE = 100
-COURSE_NUM_ONE = 3
-TITLE_ONE = 'Computer Architecture'
+COURSES = ['Web Development', 'Object Oriented Programming']
+UNIVERSITIES = ['University of Bremen', 'Jacobs University']
+TERMS = ['Summer', 'Winter']
 
-COURSE_ID_TWO = 101
-COURSE_NUM_TWO = 4
-TITLE_TWO = 'Object Oriented Programming with Python'
+EXERCISE_NUM_ONE = 100
+TITLE_ONE = 'Front-end Web development'
 
-EXERCISE_ID_ONE = 2
+EXSERCISE_NUM_TWO = 102
+TITLE_TWO = 'OOP with Python'
+
 TASK_NUM_ONE = 5
-TASK_TITLE_ONE = 'Hello world program in python'
-TEXT_ONE = 'write a python program that prints hello world to the console'
+TASK_TITLE_ONE = 'Introduction into HTML'
+TEXT_ONE = 'write an html code that displays Welcome to my first HTML CODE on the browser'
 
-TASK_TITLE_TWO = 'User Input program in python'
-TEXT_TWO = 'write a python program that accepts a user input data'
+TASK_NUM_TWO = 6
+TASK_TITLE_TWO = 'Introduction into CSS'
+TEXT_TWO = 'What is Cascading Style Sheet'
+
+TASK_NUM_THREE = 7
+TASK_TITLE_THREE = 'Hello world in python'
+TEXT_THREE = 'write a python program prints hello world'
 
 TEST_DB_PATH = 'sqlite:///test/models/teachingtest.db'
 
 DATABASE_URI = 'SQLALCHEMY_DATABASE_URI'
+
+EMPTY_COURSE = []
 
 
 
