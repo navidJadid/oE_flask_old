@@ -64,8 +64,11 @@ def test_find_courses_with_course_name_None():
     from webrob.models.teaching import find_courses
     getcourse = find_courses(course_name = None)
     assert getcourse == CONSTANTS.EMPTY_COURSE
-    
 
+def test_find_courses_with_empty_string_as_course_name():
+    from webrob.models.teaching import find_courses
+    getcourse = find_courses(course_name = '')
+    assert getcourse == CONSTANTS.EMPTY_COURSE
 
 def test_get_exercises():
     from webrob.models.teaching import get_exercises
