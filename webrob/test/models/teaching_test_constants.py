@@ -1,6 +1,7 @@
 # ****************** TEACHING TEST CONSTANTS ***********************
 
-COURSES = ['Web Development', 'Object Oriented Programming']
+COURSES = ['Front-End Web Development', 'Object Oriented Programming', 'Back-End Web Development']
+COURSE_SUB_STRING = 'WEB'
 UNIVERSITIES = ['University of Bremen', 'Jacobs University']
 TERMS = ['Summer', 'Winter']
 
