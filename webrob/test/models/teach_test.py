@@ -9,8 +9,10 @@ def create_course_rows():
     # db.drop_all()
     course1 = Course(name = CONSTANTS.COURSES[0], term = CONSTANTS.TERMS[0], university = CONSTANTS.UNIVERSITIES[0])
     course2 = Course(name = CONSTANTS.COURSES[1], term = CONSTANTS.TERMS[1], university = CONSTANTS.UNIVERSITIES[1])
+    course3 = Course(name=CONSTANTS.COURSES[2], term=CONSTANTS.TERMS[0], university=CONSTANTS.UNIVERSITIES[0])
     db.session.add(course1)
     db.session.add(course2)
+    db.session.add(course3)
     db.session.commit()
 
 def create_course_exercise_rows():
@@ -18,6 +20,7 @@ def create_course_exercise_rows():
     create_course_rows()
     course_one = Course.query.get(1)
     course_two = Course.query.get(2)
+    course_three = Course.query.get(3)
     exercise1 = CourseExercise(course_id = course_one.id, number= CONSTANTS.EXERCISE_NUM_ONE,
                                title= CONSTANTS.TITLE_ONE, archive= bin(20) )
     exercise2 = CourseExercise(course_id = course_two.id, number = CONSTANTS.EXSERCISE_NUM_TWO,
@@ -26,12 +29,12 @@ def create_course_exercise_rows():
     db.session.add(exercise2)
     db.session.commit()
 
-    return course_one, course_two
+    return course_one, course_two, course_three
 
 
 def create_course_task_rows():
     # db.drop_all()
-    course_one, course_two = create_course_exercise_rows()
+    course_one, course_two, course_three = create_course_exercise_rows()
     exercise_one = CourseExercise.query.get(1)
     exercise_two = CourseExercise.query.get(2)
     task1 = CourseTask(exercise_id = exercise_one.id, number = CONSTANTS.TASK_NUM_ONE,
@@ -47,7 +50,7 @@ def create_course_task_rows():
     db.session.add(task3)
     db.session.commit()
 
-    return course_one, course_two, exercise_one, exercise_two
+    return course_one, course_two, course_three, exercise_one, exercise_two
 
 def create_database():
     app.config[CONSTANTS.DATABASE_URI] = CONSTANTS.TEST_DB_PATH
@@ -55,24 +58,33 @@ def create_database():
     db.drop_all()
     db.create_all()
 
-    course_one, course_two, exercise_one, exercise_two = create_course_task_rows()
+    course_one, course_two, course_three, exercise_one, exercise_two = create_course_task_rows()
 
-    return course_one, course_two, exercise_one, exercise_two
+    return course_one, course_two, course_three, exercise_one, exercise_two
 
 
 def test_find_courses_with_course_name_None():
     from webrob.models.teaching import find_courses
-    getcourse = find_courses(course_name = None)
-    assert getcourse == CONSTANTS.EMPTY_COURSE
+    courses = find_courses(course_name = None)
+    assert courses == CONSTANTS.EMPTY_COURSE
 
 def test_find_courses_with_empty_string_as_course_name():
     from webrob.models.teaching import find_courses
-    getcourse = find_courses(course_name = '')
-    assert getcourse == CONSTANTS.EMPTY_COURSE
+    courses = find_courses(course_name = '')
+    assert courses == CONSTANTS.EMPTY_COURSE
+
+def test_find_courses():
+    from webrob.models.teaching import find_courses
+    course_one, course_two, course_three, exercise_one, exercise_two = create_database()
+    courses = find_courses(course_name = CONSTANTS.COURSE_SUB_STRING)
+    course3 = courses[1]
+    assert course3.name == CONSTANTS.COURSES[2]
+    app.config[CONSTANTS.DATABASE_URI] = backup_config
+
 
 def test_get_exercises():
     from webrob.models.teaching import get_exercises
-    course_one, course_two, exercise_one, exercise_two = create_database()
+    course_one, course_two, course_three, exercise_one, exercise_two = create_database()
     exercises = get_exercises(course_id = course_one.id)
     title = exercises[0].title
     assert title == CONSTANTS.TITLE_ONE
@@ -80,7 +92,7 @@ def test_get_exercises():
 
 def test_get_tasks():
     from webrob.models.teaching import get_tasks
-    course_one, course_two, exercise_one, exercise_two = create_database()
+    course_one, course_two, course_three, exercise_one, exercise_two = create_database()
     tasks = get_tasks(exercise_id = exercise_one.id)
     text = tasks[1].text
     assert text == CONSTANTS.TEXT_TWO
@@ -88,7 +100,7 @@ def test_get_tasks():
 
 def test_get_task():
     from webrob.models.teaching import get_task
-    course_one, course_two, exercise_one, exercise_two = create_database()
+    course_one, course_two, course_three, exercise_one, exercise_two = create_database()
     task = get_task(exercise_id = exercise_one.id, task_number = CONSTANTS.TASK_NUM_ONE)
     assert task.title == CONSTANTS.TASK_TITLE_ONE
     app.config[CONSTANTS.DATABASE_URI] = backup_config
