@@ -26,13 +26,13 @@ class CourseTask(db.Model):
     text = db.Column(db.String(), nullable=False)
 
 
-def find_courses(course):
-    if course is None or course == '':
+def find_courses(course_name):
+    if course_name is None or course_name == '':
         return []
     # TODO: fuzzymatch using levenshtein distance
     #    Use (somehow): func.levenshtein(text_field, match_text) \in R
     return Course.query.filter(
-        func.lower(Course.name).like(func.lower('%' + course + '%'))
+        func.lower(Course.name).like(func.lower('%' + course_name + '%'))
     ).all()
 
 
