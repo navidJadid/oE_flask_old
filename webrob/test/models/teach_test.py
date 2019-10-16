@@ -18,9 +18,9 @@ def create_course_exercise_rows():
     create_course_rows()
     course_one = Course.query.get(1)
     course_two = Course.query.get(2)
-    exercise1 = CourseExercise(course_id = course_one.id, number= CONSTANTS.COURSE_NUM_ONE,
+    exercise1 = CourseExercise(course_id = course_one.id, number= CONSTANTS.EXERCISE_NUM_ONE,
                                title= CONSTANTS.TITLE_ONE, archive= bin(20) )
-    exercise2 = CourseExercise(course_id = course_two.id, number = CONSTANTS.COURSE_NUM_TWO,
+    exercise2 = CourseExercise(course_id = course_two.id, number = CONSTANTS.EXSERCISE_NUM_TWO,
                                title = CONSTANTS.TITLE_TWO, archive=bin(10))
     db.session.add(exercise1)
     db.session.add(exercise2)
@@ -46,6 +46,7 @@ def create_course_task_rows():
     db.session.add(task2)
     db.session.add(task3)
     db.session.commit()
+
     return course_one, course_two, exercise_one, exercise_two
 
 def create_database():
@@ -57,6 +58,13 @@ def create_database():
     course_one, course_two, exercise_one, exercise_two = create_course_task_rows()
 
     return course_one, course_two, exercise_one, exercise_two
+
+
+def test_find_courses_with_course_name_None():
+    from webrob.models.teaching import find_courses
+    getcourse = find_courses(course_name = None)
+    assert getcourse == CONSTANTS.EMPTY_COURSE
+    
 
 
 def test_get_exercises():
@@ -81,5 +89,7 @@ def test_get_task():
     task = get_task(exercise_id = exercise_one.id, task_number = CONSTANTS.TASK_NUM_ONE)
     assert task.title == CONSTANTS.TASK_TITLE_ONE
     app.config[CONSTANTS.DATABASE_URI] = backup_config
+
+
 
 
