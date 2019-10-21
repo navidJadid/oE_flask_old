@@ -6,7 +6,6 @@ import teaching_test_constants as CONSTANTS
 backup_config = app.config[CONSTANTS.DATABASE_URI]
 
 def create_course_rows():
-    # db.drop_all()
     course1 = Course(name = CONSTANTS.COURSES[0], term = CONSTANTS.TERMS[0], university = CONSTANTS.UNIVERSITIES[0])
     course2 = Course(name = CONSTANTS.COURSES[1], term = CONSTANTS.TERMS[1], university = CONSTANTS.UNIVERSITIES[1])
     course3 = Course(name=CONSTANTS.COURSES[2], term=CONSTANTS.TERMS[0], university=CONSTANTS.UNIVERSITIES[0])
@@ -16,7 +15,6 @@ def create_course_rows():
     db.session.commit()
 
 def create_course_exercise_rows():
-    # db.drop_all()
     create_course_rows()
     course_one = Course.query.get(1)
     course_two = Course.query.get(2)
@@ -33,7 +31,6 @@ def create_course_exercise_rows():
 
 
 def create_course_task_rows():
-    # db.drop_all()
     course_one, course_two, course_three = create_course_exercise_rows()
     exercise_one = CourseExercise.query.get(1)
     exercise_two = CourseExercise.query.get(2)
