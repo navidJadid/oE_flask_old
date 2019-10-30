@@ -20,6 +20,10 @@ class MockDbEngineNormal:
 
 MOCK_DB_ENGINE = MockDbEngineNormal()
 
+@pytest.fixture
+def monkeypatch_setup(monkeypatch):
+    monkeypatch.setattr(SQLAlchemy, 'engine', MOCK_DB_ENGINE)
+    return monkeypatch
 
 def test_for_null_password():
     msg = _check_password_and_display_message_on_error(app,CONSTANTS.NAME, None)
