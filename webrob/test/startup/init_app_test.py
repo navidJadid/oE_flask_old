@@ -5,8 +5,21 @@ from webrob.app_and_db import app,db
 from webrob.test.startup import init_app_test_constants as CONSTANTS
 from flask_sqlalchemy import SQLAlchemy
 
-
 backup_config = app.config[CONSTANTS.DATABASE_URI]
+
+class MockDbEngineNormal:
+    def __init__(self):
+        self.cmd = "SELECT 1"
+
+    def execute(self, command):
+        # FIXME: Find way to remove hard-coding mock-method
+        if command == self.cmd:
+            return True
+        else:
+            raise Exception
+
+MOCK_DB_ENGINE = MockDbEngineNormal()
+
 
 def test_for_null_password():
     msg = _check_password_and_display_message_on_error(app,CONSTANTS.NAME, None)
