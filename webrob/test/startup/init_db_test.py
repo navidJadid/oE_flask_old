@@ -19,3 +19,8 @@ class MockDbEngineNormal:
             raise Exception
 
 MOCK_DB_ENGINE = MockDbEngineNormal()
+
+@pytest.fixture
+def monkeypatch_setup(monkeypatch):
+    monkeypatch.setattr(SQLAlchemy, 'engine', MOCK_DB_ENGINE)
+    return monkeypatch
