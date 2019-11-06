@@ -2,8 +2,7 @@ import pytest
 from webrob.utility.db_connection_checker import got_db_connection
 from webrob.app_and_db import app,db
 from flask_sqlalchemy import SQLAlchemy
-from webrob.test.startup import init_app_test_constants as CONSTANTS
-from webrob.startup.init_db import init_db
+from webrob.test.startup import init_db_test_constants as CONSTANTS
 
 backup_config = app.config[CONSTANTS.DATABASE_URI]
 
@@ -14,6 +13,7 @@ class MockDbEngineNormal:
     def execute(self, command):
         # FIXME: Find way to remove hard-coding mock-method
         if command == self.cmd:
+            app.config[CONSTANTS.DATABASE_URI] = CONSTANTS.TEST_DB_PATH
             return True
         else:
             raise Exception
@@ -24,3 +24,16 @@ MOCK_DB_ENGINE = MockDbEngineNormal()
 def monkeypatch_setup(monkeypatch):
     monkeypatch.setattr(SQLAlchemy, 'engine', MOCK_DB_ENGINE)
     return monkeypatch
+
+def test_init_db(monkeypatch_setup):
+    import os.path
+    from webrob.startup.init_db import init_db
+    init_db(app,db)
+    assert os.path.exists(CONSTANTS.DB_FILE) is True
+    app.config[CONSTANTS.DATABASE_URI] = backup_config
+
+
+
+
+
+
