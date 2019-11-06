@@ -21,14 +21,24 @@ class MockDbEngineNormal:
             raise Exception
 
 
+class MockDbEngineRaiseError:
+    def __init__(self):
+        return
+
+    def execute(self, command):
+        raise Exception
+
+
 MOCK_LOGGER = MockAppLogger()
 MOCK_DB_ENGINE = MockDbEngineNormal()
+MOCK_DB_ENGINE_MALFUNCTIONING = MockDbEngineRaiseError()
 
 
 
 @pytest.fixture
 def monkeypatch_setup(monkeypatch):
     monkeypatch.setattr(SQLAlchemy, 'engine', MOCK_DB_ENGINE)
+    monkeypatch.setattr(SQLAlchemy, 'engine', MOCK_DB_ENGINE_MALFUNCTIONING)
 
     return monkeypatch
 
@@ -38,6 +48,7 @@ def test_init_db(monkeypatch_setup):
     init_db(app,db)
     assert os.path.exists(CONSTANTS.DB_FILE) is True
     app.config[CONSTANTS.DATABASE_URI] = backup_config
+
 
 
 
