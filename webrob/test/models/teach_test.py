@@ -5,6 +5,8 @@ import teaching_test_constants as CONSTANTS
 
 backup_config = app.config[CONSTANTS.DATABASE_URI]
 
+#******************Creates a Test Database***********************
+
 def create_course_rows():
     course1 = Course(name = CONSTANTS.COURSES[0], term = CONSTANTS.TERMS[0], university = CONSTANTS.UNIVERSITIES[0])
     course2 = Course(name = CONSTANTS.COURSES[1], term = CONSTANTS.TERMS[1], university = CONSTANTS.UNIVERSITIES[1])
@@ -13,12 +15,11 @@ def create_course_rows():
     db.session.add(course2)
     db.session.add(course3)
     db.session.commit()
+    return  course1, course2, course3
 
 def create_course_exercise_rows():
-    create_course_rows()
-    course_one = Course.query.get(1)
-    course_two = Course.query.get(2)
-    course_three = Course.query.get(3)
+    course_one, course_two, course_three = create_course_rows()
+
     exercise1 = CourseExercise(course_id = course_one.id, number= CONSTANTS.EXERCISE_NUM_ONE,
                                title= CONSTANTS.TITLE_ONE, archive= bin(20) )
     exercise2 = CourseExercise(course_id = course_two.id, number = CONSTANTS.EXSERCISE_NUM_TWO,
@@ -27,13 +28,12 @@ def create_course_exercise_rows():
     db.session.add(exercise2)
     db.session.commit()
 
-    return course_one, course_two, course_three
+    return course_one, course_two, course_three, exercise1, exercise2
 
 
 def create_course_task_rows():
-    course_one, course_two, course_three = create_course_exercise_rows()
-    exercise_one = CourseExercise.query.get(1)
-    exercise_two = CourseExercise.query.get(2)
+    course_one, course_two, course_three, exercise_one, exercise_two = create_course_exercise_rows()
+
     task1 = CourseTask(exercise_id = exercise_one.id, number = CONSTANTS.TASK_NUM_ONE,
                        title = CONSTANTS.TASK_TITLE_ONE, text = CONSTANTS.TEXT_ONE)
 
@@ -59,6 +59,8 @@ def create_database():
 
     return course_one, course_two, course_three, exercise_one, exercise_two
 
+
+#*********************TESTS**************************
 
 def test_find_courses_with_course_name_None():
     from webrob.models.teaching import find_courses
