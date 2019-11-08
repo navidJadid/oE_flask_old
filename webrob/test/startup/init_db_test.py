@@ -1,4 +1,5 @@
 import pytest
+from flask import Flask
 from webrob.utility.db_connection_checker import got_db_connection
 from webrob.app_and_db import app,db
 from flask_sqlalchemy import SQLAlchemy
@@ -26,6 +27,7 @@ class MockDbEngineRaiseError:
         return
 
     def execute(self, command):
+        app.config[CONSTANTS.DATABASE_URI] = CONSTANTS.TEST_DB_PATH
         raise Exception
 
 
@@ -37,21 +39,30 @@ MOCK_DB_ENGINE_MALFUNCTIONING = MockDbEngineRaiseError()
 
 @pytest.fixture
 def monkeypatch_setup(monkeypatch):
-    monkeypatch.setattr(SQLAlchemy, 'engine', MOCK_DB_ENGINE)
-    monkeypatch.setattr(SQLAlchemy, 'engine', MOCK_DB_ENGINE_MALFUNCTIONING)
+    monkeypatch.setattr(Flask, 'logger', MOCK_LOGGER)
 
     return monkeypatch
 
-def test_init_db(monkeypatch_setup):
+def test_init_db_with_db_connection(monkeypatch_setup):
     import os.path
+    if os.path.exists(CONSTANTS.DB_FILE):
+        os.remove(CONSTANTS.DB_FILE)
     from webrob.startup.init_db import init_db
+    monkeypatch_setup.setattr(SQLAlchemy, 'engine', MOCK_DB_ENGINE)
     init_db(app,db)
     assert os.path.exists(CONSTANTS.DB_FILE) is True
     app.config[CONSTANTS.DATABASE_URI] = backup_config
 
 
-
-
+def test_init_db_without_db_connection(monkeypatch_setup):
+    import os.path
+    if os.path.exists(CONSTANTS.DB_FILE):
+        os.remove(CONSTANTS.DB_FILE)
+    from webrob.startup.init_db import init_db
+    monkeypatch_setup.setattr(SQLAlchemy, 'engine', MOCK_DB_ENGINE_MALFUNCTIONING)
+    init_db(app, db)
+    assert os.path.exists(CONSTANTS.DB_FILE) is False
+    app.config[CONSTANTS.DATABASE_URI] = backup_config
 
 
 
