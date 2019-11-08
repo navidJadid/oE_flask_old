@@ -1,4 +1,5 @@
 import pytest
+import os
 from flask import Flask
 from webrob.utility.db_connection_checker import got_db_connection
 from webrob.app_and_db import app,db
@@ -35,7 +36,10 @@ MOCK_LOGGER = MockAppLogger()
 MOCK_DB_ENGINE = MockDbEngineNormal()
 MOCK_DB_ENGINE_MALFUNCTIONING = MockDbEngineRaiseError()
 
-
+def check_db_file_path():
+    import os.path
+    if os.path.exists(CONSTANTS.DB_FILE):
+        os.remove(CONSTANTS.DB_FILE)
 
 @pytest.fixture
 def monkeypatch_setup(monkeypatch):
@@ -43,10 +47,10 @@ def monkeypatch_setup(monkeypatch):
 
     return monkeypatch
 
+# **************************TESTS****************************
+
 def test_init_db_with_db_connection(monkeypatch_setup):
-    import os.path
-    if os.path.exists(CONSTANTS.DB_FILE):
-        os.remove(CONSTANTS.DB_FILE)
+    check_db_file_path()
     from webrob.startup.init_db import init_db
     monkeypatch_setup.setattr(SQLAlchemy, 'engine', MOCK_DB_ENGINE)
     init_db(app,db)
@@ -55,9 +59,7 @@ def test_init_db_with_db_connection(monkeypatch_setup):
 
 
 def test_init_db_without_db_connection(monkeypatch_setup):
-    import os.path
-    if os.path.exists(CONSTANTS.DB_FILE):
-        os.remove(CONSTANTS.DB_FILE)
+    check_db_file_path()
     from webrob.startup.init_db import init_db
     monkeypatch_setup.setattr(SQLAlchemy, 'engine', MOCK_DB_ENGINE_MALFUNCTIONING)
     init_db(app, db)
