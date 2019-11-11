@@ -50,7 +50,7 @@ def monkeypatch_setup(monkeypatch):
 # **************************TESTS****************************
 
 def test_init_db_with_db_connection(monkeypatch_setup):
-    # check_db_file_path()
+    check_db_file_path()
     from webrob.startup.init_db import init_db
     monkeypatch_setup.setattr(SQLAlchemy, 'engine', MOCK_DB_ENGINE)
     init_db(app,db)
