@@ -38,7 +38,8 @@ MOCK_DB_ENGINE_MALFUNCTIONING = MockDbEngineRaiseError()
 
 def delete_existing_test_db_file():
     import os.path
-    db_file = os.path.abspath(CONSTANTS.DB_FILE)
+    my_path = os.path.dirname(__file__)
+    db_file = os.path.join(my_path, CONSTANTS.DB_FILE)
     if os.path.exists(db_file):
         os.remove(db_file)
 
@@ -55,7 +56,8 @@ def test_init_db_with_db_connection(monkeypatch_setup):
     from webrob.startup.init_db import init_db
     monkeypatch_setup.setattr(SQLAlchemy, 'engine', MOCK_DB_ENGINE)
     init_db(app,db)
-    db_file = os.path.abspath(CONSTANTS.DB_FILE)
+    my_path = os.path.dirname(__file__)
+    db_file = os.path.join(my_path, CONSTANTS.DB_FILE)
     assert os.path.exists(db_file) is True
     app.config[CONSTANTS.DATABASE_URI] = backup_config
 
@@ -65,7 +67,8 @@ def test_init_db_without_db_connection(monkeypatch_setup):
     from webrob.startup.init_db import init_db
     monkeypatch_setup.setattr(SQLAlchemy, 'engine', MOCK_DB_ENGINE_MALFUNCTIONING)
     init_db(app, db)
-    db_file = os.path.abspath(CONSTANTS.DB_FILE)
+    my_path = os.path.dirname(__file__)
+    db_file = os.path.join(my_path, CONSTANTS.DB_FILE)
     assert os.path.exists(db_file) is False
     app.config[CONSTANTS.DATABASE_URI] = backup_config
 
