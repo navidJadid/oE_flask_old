@@ -9,9 +9,9 @@
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/dat.gui.css') }}"/>
 
   <script type="text/javascript" src="{{ url_for('static', filename='openease.js') }}"></script>
-  
-  <link rel="shortcut icon" href="/static/icons/favicon.png" type="image/x-icon" /> 
-  
+
+  <link rel="shortcut icon" href="/static/icons/favicon.png" type="image/x-icon" />
+
   {% block login %}{% endblock %}
 
     {% block register %}{% endblock %}
@@ -28,7 +28,7 @@
     var RIGHT_MENU_LIST=[];
   </script>
   {% block menu %}{% endblock %}
-  
+
   {% block content %}{% endblock %}
 </body>
 </html>
